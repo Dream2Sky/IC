@@ -1,0 +1,21 @@
+﻿using IC.CloudLink.Services.Contracts;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace IC.CloudLink.WebApi.Controllers
+{
+    public class BaseController<T>:Controller
+    {
+        protected ILogger logger;
+        protected IDBService dbService;
+        public BaseController(ILogger<T> logger, IDBService dbService)
+        {
+            this.logger = logger;
+            this.dbService = dbService;
+        }
+    }
+}
