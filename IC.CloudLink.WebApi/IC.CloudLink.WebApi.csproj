@@ -23,10 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IC.CloudLink.Entity\IC.Core.Entity.csproj" />
     <ProjectReference Include="..\IC.CloudLink.Extensions\IC.CloudLink.Extensions.csproj" />
     <ProjectReference Include="..\IC.CloudLink.Services.Contracts\IC.CloudLink.Services.Contracts.csproj" />
     <ProjectReference Include="..\IC.CloudLink.Services\IC.CloudLink.Services.csproj" />
+    <ProjectReference Include="..\IC.Core.Entity\IC.Core.Entity.csproj" />
   </ItemGroup>
 
 </Project>

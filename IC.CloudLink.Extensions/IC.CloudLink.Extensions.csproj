@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IC.CloudLink.Entity\IC.Core.Entity.csproj" />
-    <ProjectReference Include="..\IC.CloudLink.Utility\IC.Core.Utility.csproj" />
+    <ProjectReference Include="..\IC.Core.Entity\IC.Core.Entity.csproj" />
+    <ProjectReference Include="..\IC.Core.Utility\IC.Core.Utility.csproj" />
   </ItemGroup>
 
 </Project>

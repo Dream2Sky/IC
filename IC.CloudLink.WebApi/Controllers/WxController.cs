@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using IC.CloudLink.Services.Contracts;
 using IC.Core.Entity.CloudLink.Wx;
-using IC.Core.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -22,14 +21,5 @@ namespace IC.CloudLink.WebApi.Controllers
             this.wxService = wxService;
             this.wxContext = wxContext;
         }
-
-        [HttpGet]
-        public IActionResult GetWxAuthInfo()
-        {
-            var authInfo = wxService.GetWxAuthInfo(wxContext);
-
-            return Ok(authInfo);
-        }
-
     }
 }

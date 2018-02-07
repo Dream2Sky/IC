@@ -1,6 +1,5 @@
 ﻿using IC.CloudLink.Services.Contracts;
 using IC.Core.Entity.CloudLink.Wx;
-using IC.Core.Utility;
 using System;
 using System.Collections.Generic;
 using System.Text;

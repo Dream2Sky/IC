@@ -1,9 +1,9 @@
-﻿using IC.Core.Entity.CloudLink.Wx;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using JetBrains.Annotations;
+using IC.Core.Entity.CloudLink.Wx;
 using IC.Core.Utility;
+using JetBrains.Annotations;
 
 namespace IC.CloudLink.Extensions
 {
