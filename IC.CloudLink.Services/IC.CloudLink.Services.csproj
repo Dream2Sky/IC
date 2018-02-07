@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IC.CloudLink.Services.Contracts\IC.CloudLink.Services.Contracts.csproj" />
+    <ProjectReference Include="..\IC.CloudLink.Utility\IC.Core.Utility.csproj" />
   </ItemGroup>
 
 </Project>

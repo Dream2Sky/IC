@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using IC.Core.Entity.CloudLink.Wx;
 using IC.CloudLink.Services;
 using IC.CloudLink.Services.Contracts;
+using IC.CloudLink.Extensions;
 
 namespace IC.CloudLink.WebApi
 {
@@ -30,8 +31,17 @@ namespace IC.CloudLink.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = Configuration["connectionStrings:cloudLinkDB"];
+            var appId = Configuration["wxAuthInfo:appId"];
+            var appSercet = Configuration["wxAuthInfo:appSerect"];
+            WxContext wxContext = new WxContext();
+            wxContext.InitAuthInfo(appId, appSercet);
+
             services.AddDbContext<CloudLinkDBContext>(o => o.UseMySQL(connectionString));
+            services.AddSingleton(wxContext);
+            services.AddTransient<IWxService, WxService>();
+            services.AddTransient<IDBService, DBService>();
             services.AddMvc();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +52,7 @@ namespace IC.CloudLink.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseStatusCodePages();
             app.UseExceptionHandler();
             app.UseMvc();

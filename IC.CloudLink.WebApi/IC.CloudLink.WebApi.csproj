@@ -4,6 +4,10 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>D:\Apps\Core\IC\lib\</OutputPath>
+  </PropertyGroup>
+
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
@@ -20,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IC.CloudLink.Entity\IC.Core.Entity.csproj" />
+    <ProjectReference Include="..\IC.CloudLink.Extensions\IC.CloudLink.Extensions.csproj" />
     <ProjectReference Include="..\IC.CloudLink.Services.Contracts\IC.CloudLink.Services.Contracts.csproj" />
     <ProjectReference Include="..\IC.CloudLink.Services\IC.CloudLink.Services.csproj" />
   </ItemGroup>

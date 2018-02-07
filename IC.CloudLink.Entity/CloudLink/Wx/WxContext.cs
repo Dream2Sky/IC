@@ -16,10 +16,23 @@ namespace IC.Core.Entity.CloudLink.Wx
 
         private WxToken token;
 
+        /// <summary>
+        /// 普通access_token
+        /// </summary>
         public WxToken Token
         {
             get { return token; }
             set { token = value; }
+        }
+
+        private WxToken authToken;
+        /// <summary>
+        /// 网页授权access_token
+        /// </summary>
+        public WxToken AuthToken
+        {
+            get { return authToken; }
+            set { authToken = value; }
         }
 
         private WxTicket ticket;

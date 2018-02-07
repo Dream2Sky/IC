@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CloudLink", "CloudLink", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{3D743D51-7577-484A-8331-B101C99880C1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IC.CloudLink.Extensions", "IC.CloudLink.Extensions\IC.CloudLink.Extensions.csproj", "{92D4A740-76F9-4E7D-BDDF-AD951F702C8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{FB1AB5F0-7777-434A-87EF-6443B420C87B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB1AB5F0-7777-434A-87EF-6443B420C87B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB1AB5F0-7777-434A-87EF-6443B420C87B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92D4A740-76F9-4E7D-BDDF-AD951F702C8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92D4A740-76F9-4E7D-BDDF-AD951F702C8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92D4A740-76F9-4E7D-BDDF-AD951F702C8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92D4A740-76F9-4E7D-BDDF-AD951F702C8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{56E62AC9-7881-49C8-B459-81D06CCDC2AB} = {3D743D51-7577-484A-8331-B101C99880C1}
 		{F201FC07-AF4C-47BD-9C89-BAE81B078E51} = {3D743D51-7577-484A-8331-B101C99880C1}
 		{FB1AB5F0-7777-434A-87EF-6443B420C87B} = {2D656318-4F85-4F54-B2D4-C69E0D900DE9}
+		{92D4A740-76F9-4E7D-BDDF-AD951F702C8D} = {2D656318-4F85-4F54-B2D4-C69E0D900DE9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64A6AA2C-1FB9-498B-A8D1-97FB88077B55}
