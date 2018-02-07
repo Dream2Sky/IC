@@ -23,12 +23,23 @@ namespace IC.CloudLink.Services.Contracts
         /// 获取微信jssdk签名所需的ticket
         /// </summary>
         /// <returns></returns>
-        WxTicket GetTicket(WxContext context);
+        WxTicket GetTicket(WxContext wxContext);
 
         /// <summary>
         /// 获取微信jssdk授权配置
         /// </summary>
         /// <returns></returns>
-        WxJSSDKConfig GetWxJSSDKConfig(WxContext context, string url);
+        WxJSSDKConfig GetWxJSSDKConfig(WxContext wxContext, string url);
+
+        /// <summary>
+        /// 计算jssdk签名
+        /// </summary>
+        /// <param name="ticket"></param>
+        /// <param name="nonceStr"></param>
+        /// <param name="currentUrl"></param>
+        /// <param name="timeStamp"></param>
+        /// <returns></returns>
+        string GetSignture(string ticket, string nonceStr, string currentUrl, string timeStamp);
+
     }
 }

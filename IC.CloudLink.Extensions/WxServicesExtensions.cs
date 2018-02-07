@@ -12,8 +12,7 @@ namespace IC.CloudLink.Extensions
         public static void InitAuthInfo([NotNull]this WxContext wxContext, string appId, string appSercet)
         {
             Check.NotNull(wxContext,"wxContext");
-
-            wxContext.AuthInfo = new WxAuthInfo();
+            
             wxContext.AuthInfo.AppId = appId;
             wxContext.AuthInfo.AppSercet = appSercet;
         }

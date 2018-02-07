@@ -6,6 +6,13 @@ namespace IC.Core.Entity.CloudLink.Wx
 {
     public class WxContext
     {
+        public WxContext()
+        {
+            AuthInfo = new WxAuthInfo();
+            Token = new WxToken();
+            AuthToken = new WxToken();
+            Ticket = new WxTicket();
+        }
         private WxAuthInfo authInfo;
 
         public WxAuthInfo AuthInfo

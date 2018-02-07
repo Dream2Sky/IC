@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace IC.Core.Entity.CloudLink.Common
+namespace IC.Core.Entity
 {
     public static class Enum
     {
