@@ -24,6 +24,11 @@ namespace IC.Core.Entity.CloudLink.DB
         /// <summary>
         /// 有效期类型 可选值:  Month\月包  Quarter\季包  HalfYear\半年包   Year\年包
         /// </summary>
-        public string Type { get; set; }
+        public Enum.PERID Type { get; set; }
+
+        /// <summary>
+        /// 套餐说明
+        /// </summary>
+        public string Desc { get; set; }
     }
 }

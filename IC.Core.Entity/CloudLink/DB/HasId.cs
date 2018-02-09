@@ -9,5 +9,7 @@ namespace IC.Core.Entity.CloudLink.DB
         public Guid Id { get; set; }
 
         public DateTime CreateTime { get; set; }
+
+        public bool IsDel { get; set; }
     }
 }
