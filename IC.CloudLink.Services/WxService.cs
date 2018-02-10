@@ -12,9 +12,16 @@ namespace IC.CloudLink.Services
 {
     public class WxService : IWxService
     {
-        public WxToken GetAuthToken(WxContext wxContext, string code)
+        public dynamic GetAuthToken(WxContext wxContext, string code)
         {
-            throw new NotImplementedException();
+            //?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
+            Dictionary<string, string> paramDict = new Dictionary<string, string>();
+            paramDict.Add("appid", wxContext.AuthInfo.AppId);
+            paramDict.Add("secret", wxContext.AuthInfo.AppSercet);
+            paramDict.Add("code", code);
+            paramDict.Add("grant_type", "authorization_code");
+
+            return HttpRequestUtil.Get<dynamic>(Const.WxAuthTokenUrl,paramDict);
         }
 
         /// <summary>

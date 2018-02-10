@@ -9,7 +9,7 @@ namespace IC.Core.Entity.CloudLink.DB
         /// <summary>
         /// 用户Id
         /// </summary>
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// 卡号
@@ -27,7 +27,7 @@ namespace IC.Core.Entity.CloudLink.DB
         public decimal UsagedFlow { get; set; }
 
         /// <summary>
-        /// 更新时间, 购买套餐时间
+        /// 更新时间, 购买套餐的时候会怎加这里的总流量， 消费流量的时候会更新这里的已使用流量
         /// </summary>
         public DateTime UpdateTime { get; set; }
 

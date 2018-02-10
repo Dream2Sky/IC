@@ -30,16 +30,8 @@ namespace IC.CloudLink.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = Configuration["connectionStrings:cloudLinkDB"];
-            var appId = Configuration["wxAuthInfo:appId"];
-            var appSercet = Configuration["wxAuthInfo:appSerect"];
-            WxContext wxContext = new WxContext();
-            wxContext.InitAuthInfo(appId, appSercet);
-
-            services.AddDbContext<CloudLinkDBContext>(o => o.UseMySQL(connectionString));
-            services.AddSingleton(wxContext);
-            services.AddTransient<IWxService, WxService>();
-            services.AddTransient<IDBService, DBService>();
+            AddDbService(services);
+            AddWxService(services);
             services.AddMvc();
             
         }
@@ -56,6 +48,26 @@ namespace IC.CloudLink.WebApi
             app.UseStatusCodePages();
             app.UseExceptionHandler();
             app.UseMvc();
+        }
+
+        private void AddDbService(IServiceCollection services)
+        {
+            var connectionString = Configuration["connectionStrings:cloudLinkDB"];
+            services.AddDbContext<CloudLinkDBContext>(o => o.UseMySQL(connectionString,b=>b.MigrationsAssembly("IC.CloudLink.WebApi")),ServiceLifetime.Singleton);
+
+            services.AddTransient<IDBService, DBService>();
+        }
+
+        private void AddWxService(IServiceCollection services)
+        {
+            var appId = Configuration["wxAuthInfo:appId"];
+            var appSercet = Configuration["wxAuthInfo:appSerect"];
+            WxContext wxContext = new WxContext();
+            wxContext.InitAuthInfo(appId, appSercet);
+
+            services.AddSingleton(wxContext);
+
+            services.AddTransient<IWxService, WxService>();
         }
     }
 }

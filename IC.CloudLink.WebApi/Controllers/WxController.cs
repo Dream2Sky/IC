@@ -37,5 +37,14 @@ namespace IC.CloudLink.WebApi.Controllers
             }
             return Ok(HttpRequestUtil.GetHttpResponse(HTTP_SUCCESS.SUCCESS, statusCode, msg, config));
         }
+
+        [HttpGet]
+        public IActionResult GetWxOpenId(string code, string state)
+        {
+            //https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
+            var res = wxService.GetAuthToken(wxContext, code);
+
+            return Ok(res);
+        }
     }
 }

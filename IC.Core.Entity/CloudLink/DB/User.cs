@@ -15,5 +15,10 @@ namespace IC.Core.Entity.CloudLink.DB
         /// 用户手机
         /// </summary>
         public string Phone { get; set; }
+
+        /// <summary>
+        /// 用户余额
+        /// </summary>
+        public decimal Balance { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace IC.CloudLink.Services.Contracts
         /// 获取微信公众号网页授权token
         /// </summary>
         /// <returns></returns>
-        WxToken GetAuthToken(WxContext wxContext, string code);
+        dynamic GetAuthToken(WxContext wxContext, string code);
 
         /// <summary>
         /// 获取微信公众号api访问token

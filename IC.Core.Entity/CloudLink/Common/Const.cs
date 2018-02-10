@@ -21,5 +21,11 @@ namespace IC.Core.Entity.CloudLink.Common
                 return "https://api.weixin.qq.com/cgi-bin/ticket/getticket";
             }
         }
+
+        public static string WxAuthTokenUrl {
+            get {
+                return "https://api.weixin.qq.com/sns/oauth2/access_token";
+            }
+        }
     }
 }

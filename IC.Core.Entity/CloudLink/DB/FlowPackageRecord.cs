@@ -9,17 +9,17 @@ namespace IC.Core.Entity.CloudLink.DB
         /// <summary>
         /// 用户Id
         /// </summary>
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         /// <summary>
         /// 流量卡Id
         /// </summary>
-        public Guid CardId { get; set; }
+        public string CardId { get; set; }
 
         /// <summary>
         /// 套餐Id
         /// </summary>
-        public Guid PackageId { get; set; }
+        public string PackageId { get; set; }
 
         /// <summary>
         /// 过期时间

@@ -10,7 +10,6 @@ namespace IC.Core.Entity.CloudLink.Wx
         {
             AuthInfo = new WxAuthInfo();
             Token = new WxToken();
-            AuthToken = new WxToken();
             Ticket = new WxTicket();
         }
         private WxAuthInfo authInfo;
@@ -30,16 +29,6 @@ namespace IC.Core.Entity.CloudLink.Wx
         {
             get { return token; }
             set { token = value; }
-        }
-
-        private WxToken authToken;
-        /// <summary>
-        /// 网页授权access_token
-        /// </summary>
-        public WxToken AuthToken
-        {
-            get { return authToken; }
-            set { authToken = value; }
         }
 
         private WxTicket ticket;
