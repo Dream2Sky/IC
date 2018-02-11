@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using IC.Core.Utility.Extensions;
 
 namespace IC.Core.Utility.Http
 {
@@ -47,13 +48,18 @@ namespace IC.Core.Utility.Http
         {
             HttpResult<T> httpResult = new HttpResult<T>
             {
-                Success = Convert.ToString(status),
+                Success = status.GetDescription(),
                 Code = (int)statusCode,
                 Msg = msg,
                 Data = data
             };
 
             return httpResult;
+        }
+
+        public static HttpResult<T> GetHttpResponse<T>(Entity.Enum.HTTP_STATUS_CODE statusCode,T data)
+        {
+            return GetHttpResponse(Entity.Enum.HTTP_SUCCESS.SUCCESS, statusCode, statusCode.GetDescription(), data);
         }
     }
 }

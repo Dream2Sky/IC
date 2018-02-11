@@ -15,6 +15,8 @@ using IC.Core.Entity.CloudLink.Wx;
 using IC.CloudLink.Services;
 using IC.CloudLink.Services.Contracts;
 using IC.CloudLink.Extensions;
+using System.IO;
+using IC.CloudLink.WebApi.Filters;
 
 namespace IC.CloudLink.WebApi
 {
@@ -30,9 +32,11 @@ namespace IC.CloudLink.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+            services.AddSession();
             AddDbService(services);
             AddWxService(services);
-            services.AddMvc();
+            services.AddMvc(options => { options.Filters.Add<HttpGlobalExceptionFilter>(); });
             
         }
 
@@ -44,7 +48,7 @@ namespace IC.CloudLink.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+            app.UseSession();
             app.UseStatusCodePages();
             app.UseExceptionHandler();
             app.UseMvc();
@@ -52,8 +56,8 @@ namespace IC.CloudLink.WebApi
 
         private void AddDbService(IServiceCollection services)
         {
-            var connectionString = Configuration["connectionStrings:cloudLinkDB"];
-            services.AddDbContext<CloudLinkDBContext>(o => o.UseMySQL(connectionString,b=>b.MigrationsAssembly("IC.CloudLink.WebApi")),ServiceLifetime.Singleton);
+            var connectString = Configuration.GetConnectionString("cloudLinkDB");
+            services.AddDbContext<CloudLinkDBContext>(o => o.UseMySQL(connectString, b=>b.MigrationsAssembly("IC.CloudLink.WebApi")),ServiceLifetime.Singleton);
 
             services.AddTransient<IDBService, DBService>();
         }

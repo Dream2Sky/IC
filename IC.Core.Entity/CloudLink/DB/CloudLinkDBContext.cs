@@ -9,7 +9,7 @@ namespace IC.Core.Entity.CloudLink.DB
     {
         public CloudLinkDBContext(DbContextOptions<CloudLinkDBContext> options) : base(options)
         {
-            Database.EnsureCreatedAsync();
+            Database.Migrate();
         }
 
         public DbSet<User> Users { get; set; }

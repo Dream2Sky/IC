@@ -11,7 +11,7 @@ using System;
 namespace IC.CloudLink.WebApi.Migrations
 {
     [DbContext(typeof(CloudLinkDBContext))]
-    [Migration("20180210184029_CloudLinkDBInitialMigration")]
+    [Migration("20180211025452_CloudLinkDBInitialMigration")]
     partial class CloudLinkDBInitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

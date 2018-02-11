@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel;
 
 namespace IC.Core.Entity
 {
@@ -14,8 +15,13 @@ namespace IC.Core.Entity
 
         public enum HTTP_STATUS_CODE
         {
+            [Description("获取数据失败")]
             ERROR = -1,
+
+            [Description("获取数据成功")]
             SUCCESS = 100,
+
+            [Description("获取数据成功, 但数据为空")]
             DATAEMPTY = 101
         }
 
