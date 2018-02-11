@@ -14,14 +14,13 @@ namespace IC.CloudLink.Services
     {
         public dynamic GetAuthToken(WxContext wxContext, string code)
         {
-            //?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
             Dictionary<string, string> paramDict = new Dictionary<string, string>();
             paramDict.Add("appid", wxContext.AuthInfo.AppId);
             paramDict.Add("secret", wxContext.AuthInfo.AppSercet);
             paramDict.Add("code", code);
             paramDict.Add("grant_type", "authorization_code");
 
-            return HttpRequestUtil.Get<dynamic>(Const.WxAuthTokenUrl,paramDict);
+            return HttpRequestUtil.Get<dynamic>(Const.WxAuthTokenUrl, paramDict);
         }
 
         /// <summary>
@@ -95,6 +94,26 @@ namespace IC.CloudLink.Services
             config.NonceStr = wxContext.NonceStr;
 
             return config;
+        }
+
+        /// <summary>
+        /// 获取微信用户基本信息
+        /// </summary>
+        /// <param name="wxContext"></param>
+        /// <param name="openId"></param>
+        /// <returns></returns>
+        public dynamic GetWxUserInfo(WxContext wxContext, string openId)
+        {
+            if (wxContext.Token == null || wxContext.Token.ExpiresTime <= DateTime.Now)
+            {
+                this.GetToken(wxContext);
+            }
+            Dictionary<string, string> paramDict = new Dictionary<string, string>();
+            paramDict.Add("access_token", wxContext.Token.Access_Token);
+            paramDict.Add("openid", openId);
+            paramDict.Add("lang", "zh_CN");
+
+            return HttpRequestUtil.Get<dynamic>(Const.WxUserInfo, paramDict);
         }
     }
 }

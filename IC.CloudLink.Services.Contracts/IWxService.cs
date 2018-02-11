@@ -14,6 +14,13 @@ namespace IC.CloudLink.Services.Contracts
         dynamic GetAuthToken(WxContext wxContext, string code);
 
         /// <summary>
+        /// 获取微信用户基本信息
+        /// </summary>
+        /// <param name="wxContext"></param>
+        /// <returns></returns>
+        dynamic GetWxUserInfo(WxContext wxContext, string openId);
+
+        /// <summary>
         /// 获取微信公众号api访问token
         /// </summary>
         /// <returns></returns>

@@ -22,9 +22,19 @@ namespace IC.Core.Entity.CloudLink.Common
             }
         }
 
-        public static string WxAuthTokenUrl {
-            get {
+        public static string WxAuthTokenUrl
+        {
+            get
+            {
                 return "https://api.weixin.qq.com/sns/oauth2/access_token";
+            }
+        }
+
+        public static string WxUserInfo
+        {
+            get
+            {
+                return "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
             }
         }
     }
