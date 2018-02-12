@@ -11,14 +11,14 @@ namespace IC.CloudLink.Services.Contracts
         /// 获取微信公众号网页授权token
         /// </summary>
         /// <returns></returns>
-        dynamic GetAuthToken(WxContext wxContext, string code);
+        WxAuthToken GetAuthToken(WxContext wxContext, string code);
 
         /// <summary>
         /// 获取微信用户基本信息
         /// </summary>
         /// <param name="wxContext"></param>
         /// <returns></returns>
-        dynamic GetWxUserInfo(WxContext wxContext, string openId);
+        WxUserInfo GetWxUserInfo(WxContext wxContext, string openId);
 
         /// <summary>
         /// 获取微信公众号api访问token

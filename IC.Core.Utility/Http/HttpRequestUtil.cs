@@ -40,6 +40,7 @@ namespace IC.Core.Utility.Http
             var resp = res.Result;
             Task<string> temp = resp.Content.ReadAsStringAsync();
             temp.Wait();
+            
             return JsonConvert.DeserializeObject<T>(temp.Result);
         }
 

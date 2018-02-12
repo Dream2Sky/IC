@@ -12,7 +12,7 @@ namespace IC.CloudLink.Services
 {
     public class WxService : IWxService
     {
-        public dynamic GetAuthToken(WxContext wxContext, string code)
+        public WxAuthToken GetAuthToken(WxContext wxContext, string code)
         {
             Dictionary<string, string> paramDict = new Dictionary<string, string>();
             paramDict.Add("appid", wxContext.AuthInfo.AppId);
@@ -20,7 +20,7 @@ namespace IC.CloudLink.Services
             paramDict.Add("code", code);
             paramDict.Add("grant_type", "authorization_code");
 
-            return HttpRequestUtil.Get<dynamic>(Const.WxAuthTokenUrl, paramDict);
+            return HttpRequestUtil.Get<WxAuthToken>(Const.WxAuthTokenUrl, paramDict);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace IC.CloudLink.Services
         /// <param name="wxContext"></param>
         /// <param name="openId"></param>
         /// <returns></returns>
-        public dynamic GetWxUserInfo(WxContext wxContext, string openId)
+        public WxUserInfo GetWxUserInfo(WxContext wxContext, string openId)
         {
             if (wxContext.Token == null || wxContext.Token.ExpiresTime <= DateTime.Now)
             {
@@ -113,7 +113,7 @@ namespace IC.CloudLink.Services
             paramDict.Add("openid", openId);
             paramDict.Add("lang", "zh_CN");
 
-            return HttpRequestUtil.Get<dynamic>(Const.WxUserInfo, paramDict);
+            return HttpRequestUtil.Get<WxUserInfo>(Const.WxUserInfo, paramDict);
         }
     }
 }
