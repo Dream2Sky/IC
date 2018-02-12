@@ -17,6 +17,7 @@ using IC.CloudLink.Services.Contracts;
 using IC.CloudLink.Extensions;
 using System.IO;
 using IC.CloudLink.WebApi.Filters;
+using IC.Core.Entity.CloudLink.SMS;
 
 namespace IC.CloudLink.WebApi
 {
@@ -36,8 +37,9 @@ namespace IC.CloudLink.WebApi
             services.AddSession();
             AddDbService(services);
             AddWxService(services);
+            AddSMSService(services);
             services.AddMvc(options => { options.Filters.Add<HttpGlobalExceptionFilter>(); });
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,22 +58,47 @@ namespace IC.CloudLink.WebApi
 
         private void AddDbService(IServiceCollection services)
         {
-            var connectString = Configuration.GetConnectionString("cloudLinkDB");
-            services.AddDbContext<CloudLinkDBContext>(o => o.UseMySQL(connectString, b=>b.MigrationsAssembly("IC.CloudLink.WebApi")),ServiceLifetime.Singleton);
+            var connectString = Configuration.GetConnectionString("CloudLinkDB");
+            services.AddDbContext<CloudLinkDBContext>(o => o.UseMySQL(connectString, b => b.MigrationsAssembly("IC.CloudLink.WebApi")), ServiceLifetime.Singleton);
 
             services.AddTransient<IDBService, DBService>();
         }
 
         private void AddWxService(IServiceCollection services)
         {
-            var appId = Configuration["wxAuthInfo:appId"];
-            var appSercet = Configuration["wxAuthInfo:appSerect"];
+            var appId = Configuration["WxAuthInfo:AppId"];
+            var appSercet = Configuration["WxAuthInfo:AppSerect"];
             WxContext wxContext = new WxContext();
             wxContext.InitAuthInfo(appId, appSercet);
 
             services.AddSingleton(wxContext);
 
             services.AddTransient<IWxService, WxService>();
+        }
+
+        private void AddSMSService(IServiceCollection services)
+        {
+            var product = Configuration["SMSInfo:Product"];
+            var domain = Configuration["SMSInfo:Domain"];
+            var signName = Configuration["SMSInfo:SignName"];
+            var templateCode = Configuration["SMSInfo:TemplateCode"];
+            var accessKeyId = Configuration["SMSInfo:AccessKeyId"];
+            var accessKeySecret = Configuration["SMSInfo:AccessKeySecret"];
+            var regionId = Configuration["SMSInfo:RegionId"];
+
+            SMSContext smsContext = new SMSContext()
+            {
+                Domain = domain,
+                Product = product,
+                SignName = signName,
+                TemplateCode = templateCode,
+                RegionId = regionId,
+                AccessKeyId = accessKeyId,
+                AccessKeySecret = accessKeySecret
+            };
+
+            services.AddSingleton(smsContext);
+            services.AddTransient<ISMSService, SMSService>();
         }
     }
 }

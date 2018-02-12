@@ -30,4 +30,13 @@
     <ProjectReference Include="..\IC.Core.Entity\IC.Core.Entity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="aliyun-net-sdk-core">
+      <HintPath>..\..\..\dysmsapi_demo_sdk__net\net\msg_sdk\dll\aliyun-net-sdk-core.dll</HintPath>
+    </Reference>
+    <Reference Include="aliyun-net-sdk-dysmsapi">
+      <HintPath>..\..\..\dysmsapi_demo_sdk__net\net\msg_sdk\dll\aliyun-net-sdk-dysmsapi.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

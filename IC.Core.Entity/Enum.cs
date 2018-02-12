@@ -22,7 +22,10 @@ namespace IC.Core.Entity
             SUCCESS = 100,
 
             [Description("获取数据成功, 但数据为空")]
-            DATAEMPTY = 101
+            DATAEMPTY = 101,
+
+            [Description("访问超时，身份验证丢失")]
+            TIMEOUT = 201
         }
 
         /// <summary>

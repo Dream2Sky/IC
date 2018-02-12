@@ -1,5 +1,5 @@
 ﻿using IC.CloudLink.Services.Contracts;
-using IC.Core.Entity.CloudLink.Common;
+using IC.Core.Entity;
 using IC.Core.Entity.CloudLink.Wx;
 using IC.Core.Utility.Encrypt;
 using IC.Core.Utility.Http;
