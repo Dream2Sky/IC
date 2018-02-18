@@ -24,7 +24,7 @@ namespace IC.Core.Entity
             [Description("获取数据成功, 但数据为空")]
             DATAEMPTY = 101,
 
-            [Description("访问超时，身份验证丢失")]
+            [Description("访问超时，请重新访问应用")]
             TIMEOUT = 201,
 
             [Description("该账号未注册成为会员")]

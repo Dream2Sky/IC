@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Aliyun.Acs.Dysmsapi.Model.V20170525;
 using IC.CloudLink.Services.Contracts;
 using IC.Core.Entity.CloudLink.SMS;
 using IC.Core.Entity.Common;
@@ -35,10 +34,6 @@ namespace IC.CloudLink.WebApi.Controllers
         public IActionResult IsRegister()
         {
             var openId = HttpContext.Session.GetString("OpenId");
-            if (string.IsNullOrWhiteSpace(openId))
-            {
-                return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.TIMEOUT, ""));
-            }
             var res = dbService.GetUserByOpenId(openId);
             var isRegister = res.Count() <= 0 ? false : true;
 
@@ -48,7 +43,7 @@ namespace IC.CloudLink.WebApi.Controllers
         [HttpPost]
         public IActionResult Register(string phone, string vaildCode)
         {
-
+            
             return Ok();
         }
 

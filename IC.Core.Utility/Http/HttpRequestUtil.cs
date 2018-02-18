@@ -15,25 +15,26 @@ namespace IC.Core.Utility.Http
     {
         public static T Get<T>(string url, Dictionary<string, string> paramDict)
         {
-            if (paramDict.Count > 0)
+            HttpClient httpClient = new HttpClient();
+            HttpContent content = null;
+            if (paramDict != null && paramDict.Count > 0)
             {
                 url += "?";
                 foreach (var item in paramDict)
                 {
                     url += string.Format("{0}={1}&", item.Key, item.Value);
                 }
-            }
-            HttpClient httpClient = new HttpClient();
-            HttpContent content = new FormUrlEncodedContent(paramDict);
-            if (paramDict != null)
-            {
+                content = new FormUrlEncodedContent(paramDict);
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
                 content.Headers.ContentType.CharSet = "UTF-8";
+                
             }
+            
             var request = new HttpRequestMessage()
             {
                 RequestUri = new Uri(url),
                 Method = HttpMethod.Get,
+                Content = content
             };
             var res = httpClient.SendAsync(request);
             res.Wait();

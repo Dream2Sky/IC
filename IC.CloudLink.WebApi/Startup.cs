@@ -40,8 +40,7 @@ namespace IC.CloudLink.WebApi
             AddWxService(services);
             AddVerificationCodeService(services);
             services.AddTransient<ISMSService, SMSService>();
-            services.AddMvc(options => { options.Filters.Add<HttpGlobalExceptionFilter>();
-                options.Filters.Add<WxAuthFilter>(); });
+            services.AddMvc(options => { options.Filters.Add<HttpGlobalExceptionFilter>();});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

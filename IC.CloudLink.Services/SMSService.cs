@@ -1,7 +1,4 @@
-﻿using Aliyun.Acs.Core;
-using Aliyun.Acs.Core.Profile;
-using Aliyun.Acs.Dysmsapi.Model.V20170525;
-using IC.CloudLink.Services.Contracts;
+﻿using IC.CloudLink.Services.Contracts;
 using IC.Core.Entity.CloudLink.SMS;
 using IC.Core.Utility.Http;
 using System;

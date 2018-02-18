@@ -1,4 +1,5 @@
 ﻿using IC.CloudLink.Services.Contracts;
+using IC.CloudLink.WebApi.Filters;
 using IC.Core.Entity.CloudLink.Wx;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using System.Web;
 
 namespace IC.CloudLink.WebApi.Controllers
 {
+    [WxAuthFilter]
     public class BaseController<T>:Controller
     {
         protected ILogger logger;

@@ -8,6 +8,8 @@ using IC.CloudLink.Services.Contracts;
 using IC.Core.Entity.CloudLink.Wx;
 using IC.Core.Utility.Extensions;
 using IC.Core.Utility.Http;
+using IC.CloudLink.WebApi.Filters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -35,6 +37,22 @@ namespace IC.CloudLink.WebApi.Controllers
             var statusCode = config == null ? HTTP_STATUS_CODE.DATAEMPTY : HTTP_STATUS_CODE.SUCCESS;
 
             return Ok(HttpRequestUtil.GetHttpResponse(statusCode, config));
+        }
+
+        [HttpGet]
+        [WxAuthFilter(IsFilter = false)]
+        public IActionResult GetWxOpenId(string code, string state)
+        {
+            var res = wxService.GetAuthToken(wxContext, code);
+            if (res != null)
+            {
+                HttpContext.Session.SetString("OpenId", res.OpenId);
+                return Redirect("/");
+            }
+            else
+            {
+                return Ok(HttpRequestUtil.GetHttpResponse<string>(HTTP_STATUS_CODE.ERROR,""));
+            }
         }
 
         [HttpGet]
