@@ -18,6 +18,7 @@ using IC.CloudLink.Extensions;
 using System.IO;
 using IC.CloudLink.WebApi.Filters;
 using IC.Core.Entity.CloudLink.SMS;
+using IC.Core.Entity.Common;
 
 namespace IC.CloudLink.WebApi
 {
@@ -37,9 +38,10 @@ namespace IC.CloudLink.WebApi
             services.AddSession();
             AddDbService(services);
             AddWxService(services);
-            AddSMSService(services);
-            services.AddMvc(options => { options.Filters.Add<HttpGlobalExceptionFilter>(); });
-
+            AddVerificationCodeService(services);
+            services.AddTransient<ISMSService, SMSService>();
+            services.AddMvc(options => { options.Filters.Add<HttpGlobalExceptionFilter>();
+                options.Filters.Add<WxAuthFilter>(); });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,29 +78,12 @@ namespace IC.CloudLink.WebApi
             services.AddTransient<IWxService, WxService>();
         }
 
-        private void AddSMSService(IServiceCollection services)
-        {
-            var product = Configuration["SMSInfo:Product"];
-            var domain = Configuration["SMSInfo:Domain"];
-            var signName = Configuration["SMSInfo:SignName"];
-            var templateCode = Configuration["SMSInfo:TemplateCode"];
-            var accessKeyId = Configuration["SMSInfo:AccessKeyId"];
-            var accessKeySecret = Configuration["SMSInfo:AccessKeySecret"];
-            var regionId = Configuration["SMSInfo:RegionId"];
+        private void AddVerificationCodeService(IServiceCollection services) {
+            Dictionary<string, List<VerificationCode>> verificationCodeDict = new Dictionary<string, List<VerificationCode>>();
+            services.AddSingleton(verificationCodeDict);
 
-            SMSContext smsContext = new SMSContext()
-            {
-                Domain = domain,
-                Product = product,
-                SignName = signName,
-                TemplateCode = templateCode,
-                RegionId = regionId,
-                AccessKeyId = accessKeyId,
-                AccessKeySecret = accessKeySecret
-            };
-
-            services.AddSingleton(smsContext);
-            services.AddTransient<ISMSService, SMSService>();
+            services.AddTransient<IVerificationCodeService, VerificationCodeService>();
         }
+
     }
 }

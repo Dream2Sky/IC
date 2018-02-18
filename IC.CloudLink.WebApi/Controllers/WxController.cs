@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using System.Web;
 using IC.CloudLink.Services.Contracts;
-using IC.CloudLink.WebApi.Models;
 using IC.Core.Entity.CloudLink.Wx;
 using IC.Core.Utility.Extensions;
 using IC.Core.Utility.Http;
@@ -17,14 +18,14 @@ namespace IC.CloudLink.WebApi.Controllers
     [Route("api/[controller]/[action]")]
     public class WxController : BaseController<WxController>
     {
-        private IWxService wxService;
         private WxContext wxContext;
-        public WxController(ILogger<WxController> logger, IDBService dbService,
-            IWxService wxService, WxContext wxContext)
+        private IWxService wxService;
+        public WxController(ILogger<WxController> logger, IDBService dbService, 
+            IWxService wxService, WxContext wxContext) 
             : base(logger, dbService)
         {
-            this.wxService = wxService;
             this.wxContext = wxContext;
+            this.wxService = wxService;
         }
 
         [HttpGet("{url}")]
@@ -37,25 +38,23 @@ namespace IC.CloudLink.WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetWxUserInfo(string code, string state)
+        public IActionResult GetWxUserInfo()
         {
-            var res = wxService.GetAuthToken(wxContext, code);
-            if (res == null)
-            {
-                return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.ERROR, ""));
-            }
-            string openId = res.OpenId;
-
-            HttpContext.Session.SetString("OpenId", openId);
-
+            var openId = HttpContext.Session.GetString("OpenId");
             var userInfo = wxService.GetWxUserInfo(wxContext, openId);
             if (userInfo == null)
             {
                 return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.ERROR, ""));
             }
-            logger.LogInformation(userInfo.openid);
-            logger.LogInformation(userInfo.nickname);
-            return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.SUCCESS, userInfo));
+
+            if (dbService.IsRegister(openId))
+            {
+                return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.SUCCESS, userInfo));
+            }
+            else
+            {
+                return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.NOREGISTER, openId));
+            }
         }
     }
 }

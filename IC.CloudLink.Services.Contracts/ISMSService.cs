@@ -9,10 +9,6 @@ namespace IC.CloudLink.Services.Contracts
 {
     public interface ISMSService
     {
-        IAcsClient InitAcsClient(SMSContext smsContext);
-
-        SendSmsRequest InitSmsRequest(SMSContext smsContext, string phone, string data);
-
-        SendSmsResponse SentMsg(IAcsClient acsClient, SendSmsRequest request);
+        SMSResult SentSMS(string phone, int code);
     }
 }

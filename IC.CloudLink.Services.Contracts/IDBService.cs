@@ -8,6 +8,6 @@ namespace IC.CloudLink.Services.Contracts
     public interface IDBService
     {
         IEnumerable<User> GetUserByOpenId(string openId);
-
+        bool IsRegister(string openId);
     }
 }

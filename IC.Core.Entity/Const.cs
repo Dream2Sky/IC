@@ -30,6 +30,14 @@ namespace IC.Core.Entity
             }
         }
 
+        public static string WxAuthCodeUrl
+        {
+            get
+            {
+                return "https://open.weixin.qq.com/connect/oauth2/authorize";
+            }
+        }
+
         public static string WxUserInfo
         {
             get
@@ -37,5 +45,12 @@ namespace IC.Core.Entity
                 return "https://api.weixin.qq.com/cgi-bin/user/info";
             }
         }
+
+        public static string WxGateWayAuthUrl {
+            get {
+                return "http://localhost:5001/api/gateway/auth";
+            }
+        }
+
     }
 }

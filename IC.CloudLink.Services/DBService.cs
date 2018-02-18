@@ -25,5 +25,21 @@ namespace IC.CloudLink.Services
             var res = cloudLinkDBContext.Users.Where(n => n.WxOpenId == openId);
             return res;
         }
+
+        /// <summary>
+        /// 判断openId是否已经注册
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <returns></returns>
+        public bool IsRegister(string openId)
+        {
+            var isRegister = false;
+            if (!string.IsNullOrWhiteSpace(openId))
+            {
+                var res = GetUserByOpenId(openId);
+                isRegister = res.Count() <= 0 ? false : true;
+            }
+            return isRegister;
+        }
     }
 }

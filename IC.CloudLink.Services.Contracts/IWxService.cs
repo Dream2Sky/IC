@@ -14,6 +14,13 @@ namespace IC.CloudLink.Services.Contracts
         WxAuthToken GetAuthToken(WxContext wxContext, string code);
 
         /// <summary>
+        /// 微信鉴权 获取code
+        /// </summary>
+        /// <param name="wxContext"></param>
+        /// <returns></returns>
+        void GetAuthCode(WxContext wxContext, string redirectUrl);
+
+        /// <summary>
         /// 获取微信用户基本信息
         /// </summary>
         /// <param name="wxContext"></param>
