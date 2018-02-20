@@ -31,27 +31,32 @@ namespace IC.CloudLink.WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult IsRegister()
+        public IActionResult IsRegister(string openId)
         {
-            var openId = HttpContext.Session.GetString("OpenId");
             var res = dbService.GetUserByOpenId(openId);
             var isRegister = res.Count() <= 0 ? false : true;
 
             return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.SUCCESS, isRegister));
         }
 
-        [HttpPost]
-        public IActionResult Register(string phone, string vaildCode)
-        {
-            
-            return Ok();
-        }
-
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <param name="phone"></param>
+        /// <param name="validCode"></param>
+        /// <returns></returns>
         [HttpGet]
-        public IActionResult IsValidCode(string phone, string validCode)
+        public IActionResult Register(string openId, string phone, string validCode)
         {
-            var res = verificationCodeService.ValidateCode(codeDict, phone, Convert.ToInt32(validCode));
-            return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.SUCCESS, res));
+            var isValidCode = verificationCodeService.ValidateCode(codeDict, phone, Convert.ToInt32(validCode));
+            if (!isValidCode)
+            {
+                return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.INVALIDCODE, isValidCode));
+            }
+
+            dbService.Register(phone, openId);
+            return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.SUCCESS,""));
         }
 
         /// <summary>
@@ -60,7 +65,7 @@ namespace IC.CloudLink.WebApi.Controllers
         /// <param name="phone"></param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult SendVerificationCode(string phone)
+        public IActionResult SendVerificationCode(string openId, string phone)
         {
             var code = verificationCodeService.NewCode(codeDict, phone);
 

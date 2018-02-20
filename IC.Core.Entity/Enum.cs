@@ -28,7 +28,13 @@ namespace IC.Core.Entity
             TIMEOUT = 201,
 
             [Description("该账号未注册成为会员")]
-            NOREGISTER = 202
+            NOREGISTER = 202,
+            
+            [Description("不合法的OpenId")]
+            INVALIDOPENID = 203,
+
+            [Description("手机验证码不合法")]
+            INVALIDCODE = 204
         }
 
         /// <summary>

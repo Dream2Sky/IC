@@ -31,6 +31,7 @@ namespace IC.CloudLink.WebApi.Controllers
         }
 
         [HttpGet("{url}")]
+        [ChkOpenIdFilter(IsFilter = false)]
         public IActionResult GetJSSDKConfig(string url)
         {
             var config = wxService.GetWxJSSDKConfig(wxContext, url);
@@ -41,13 +42,14 @@ namespace IC.CloudLink.WebApi.Controllers
 
         [HttpGet]
         [WxAuthFilter(IsFilter = false)]
+        [ChkOpenIdFilter(IsFilter = false)]
         public IActionResult GetWxOpenId(string code, string state)
         {
             var res = wxService.GetAuthToken(wxContext, code);
             if (res != null)
             {
                 HttpContext.Session.SetString("OpenId", res.OpenId);
-                return Redirect("/");
+                return Redirect("/?openId="+res.OpenId);
             }
             else
             {
@@ -56,9 +58,8 @@ namespace IC.CloudLink.WebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetWxUserInfo()
+        public IActionResult GetWxUserInfo(string openId)
         {
-            var openId = HttpContext.Session.GetString("OpenId");
             var userInfo = wxService.GetWxUserInfo(wxContext, openId);
             if (userInfo == null)
             {

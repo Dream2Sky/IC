@@ -12,7 +12,6 @@ using System.Web;
 
 namespace IC.CloudLink.WebApi.Controllers
 {
-    [WxAuthFilter]
     public class BaseController<T>:Controller
     {
         protected ILogger logger;

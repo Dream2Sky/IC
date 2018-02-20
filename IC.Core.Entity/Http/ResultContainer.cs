@@ -12,5 +12,10 @@ namespace IC.Core.Entity.Http
         {
             StatusCode = (int)HttpStatusCode.InternalServerError;
         }
+
+        public ResultContainer(object value, HttpStatusCode statusCode):base(value)
+        {
+            StatusCode = (int)statusCode;
+        }
     }
 }

@@ -41,5 +41,25 @@ namespace IC.CloudLink.Services
             }
             return isRegister;
         }
+
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="phone"></param>
+        /// <param name="openId"></param>
+        /// <returns></returns>
+        public void Register(string phone, string openId)
+        {
+            var user = new User(){
+                Id = Guid.NewGuid().ToString(),
+                WxOpenId = openId,
+                Phone = phone,
+                CreateTime = DateTime.Now,
+                DelTime = DateTime.MinValue,
+                IsDel = false
+            };
+            cloudLinkDBContext.Users.Add(user);
+            cloudLinkDBContext.SaveChanges();
+        }
     }
 }

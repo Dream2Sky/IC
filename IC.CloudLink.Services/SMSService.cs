@@ -1,4 +1,5 @@
 ﻿using IC.CloudLink.Services.Contracts;
+using IC.Core.Entity;
 using IC.Core.Entity.CloudLink.SMS;
 using IC.Core.Utility.Http;
 using System;
@@ -14,7 +15,7 @@ namespace IC.CloudLink.Services
             Dictionary<string, string> paramDict = new Dictionary<string, string>();
             paramDict.Add("phone", phone);
             paramDict.Add("code", Convert.ToString(code));
-            return HttpRequestUtil.Get<SMSResult>("http://localhost:3000/sendsms", paramDict);
+            return HttpRequestUtil.Get<SMSResult>(Const.SMSUrl, paramDict);
         }
     }
 }

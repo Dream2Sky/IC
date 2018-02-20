@@ -9,5 +9,6 @@ namespace IC.CloudLink.Services.Contracts
     {
         IEnumerable<User> GetUserByOpenId(string openId);
         bool IsRegister(string openId);
+        void Register(string phone, string openId);
     }
 }
