@@ -27,7 +27,9 @@ namespace IC.CloudLink.WebApi.Filters
             
             if (string.IsNullOrWhiteSpace(openId))
             {
-                var resultContainer = GetFilterContextResult(Core.Entity.Enum.HTTP_SUCCESS.FAIL, IC.Core.Entity.Enum.HTTP_STATUS_CODE.TIMEOUT);
+                var resultContainer = GetFilterContextResult(Core.Entity.Enum.HTTP_SUCCESS.FAIL, 
+                    (int)IC.Core.Entity.Enum.BIZSTATUS.TIMEOUT, 
+                    IC.Core.Entity.Enum.BIZSTATUS.TIMEOUT.GetDescription());
 
                 context.Result = resultContainer;
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;

@@ -19,13 +19,12 @@ namespace IC.CloudLink.WebApi.Filters
     {
         public bool IsFilter { get; set; }
 
-        protected ResultContainer GetFilterContextResult(Core.Entity.Enum.HTTP_SUCCESS acceptStatus,
-            Core.Entity.Enum.HTTP_STATUS_CODE statusCode)
+        protected ResultContainer GetFilterContextResult(Core.Entity.Enum.HTTP_SUCCESS acceptStatus, int statusCode, string msg)
         {
             HttpResult<string> result = new HttpResult<string>();
             result.Success = Convert.ToString(acceptStatus);
-            result.Code = (int)statusCode;
-            result.Msg = statusCode.GetDescription();
+            result.Code = statusCode;
+            result.Msg = msg;
             ResultContainer resultContainer = new ResultContainer(result);
 
             return resultContainer;

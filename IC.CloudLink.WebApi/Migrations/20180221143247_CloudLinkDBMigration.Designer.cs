@@ -11,8 +11,8 @@ using System;
 namespace IC.CloudLink.WebApi.Migrations
 {
     [DbContext(typeof(CloudLinkDBContext))]
-    [Migration("20180211025452_CloudLinkDBInitialMigration")]
-    partial class CloudLinkDBInitialMigration
+    [Migration("20180221143247_CloudLinkDBMigration")]
+    partial class CloudLinkDBMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,15 +23,21 @@ namespace IC.CloudLink.WebApi.Migrations
             modelBuilder.Entity("IC.Core.Entity.CloudLink.DB.FlowCard", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36);
 
                     b.Property<DateTime>("CreateTime");
 
                     b.Property<DateTime>("DelTime");
 
-                    b.Property<string>("ICCId");
+                    b.Property<string>("ICCId")
+                        .IsRequired()
+                        .HasMaxLength(20);
 
                     b.Property<bool>("IsDel");
+
+                    b.Property<string>("OpenId")
+                        .HasMaxLength(32);
 
                     b.Property<decimal>("TotalFlow");
 
@@ -39,9 +45,12 @@ namespace IC.CloudLink.WebApi.Migrations
 
                     b.Property<decimal>("UsagedFlow");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasMaxLength(36);
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("FlowCards");
                 });
@@ -49,7 +58,8 @@ namespace IC.CloudLink.WebApi.Migrations
             modelBuilder.Entity("IC.Core.Entity.CloudLink.DB.FlowPackage", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36);
 
                     b.Property<decimal>("Amount");
 
@@ -57,13 +67,15 @@ namespace IC.CloudLink.WebApi.Migrations
 
                     b.Property<DateTime>("DelTime");
 
-                    b.Property<string>("Desc");
+                    b.Property<string>("Desc")
+                        .HasMaxLength(1000);
 
                     b.Property<decimal>("Flow");
 
                     b.Property<bool>("IsDel");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(100);
 
                     b.Property<int>("Type");
 
@@ -75,9 +87,11 @@ namespace IC.CloudLink.WebApi.Migrations
             modelBuilder.Entity("IC.Core.Entity.CloudLink.DB.FlowPackageRecord", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36);
 
-                    b.Property<string>("CardId");
+                    b.Property<string>("CardId")
+                        .HasMaxLength(36);
 
                     b.Property<DateTime>("CreateTime");
 
@@ -87,9 +101,11 @@ namespace IC.CloudLink.WebApi.Migrations
 
                     b.Property<bool>("IsDel");
 
-                    b.Property<string>("PackageId");
+                    b.Property<string>("PackageId")
+                        .HasMaxLength(36);
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasMaxLength(36);
 
                     b.HasKey("Id");
 
@@ -99,7 +115,8 @@ namespace IC.CloudLink.WebApi.Migrations
             modelBuilder.Entity("IC.Core.Entity.CloudLink.DB.ReChargeRecord", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36);
 
                     b.Property<decimal>("Amount");
 
@@ -109,7 +126,8 @@ namespace IC.CloudLink.WebApi.Migrations
 
                     b.Property<bool>("IsDel");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .HasMaxLength(36);
 
                     b.HasKey("Id");
 
@@ -119,7 +137,8 @@ namespace IC.CloudLink.WebApi.Migrations
             modelBuilder.Entity("IC.Core.Entity.CloudLink.DB.User", b =>
                 {
                     b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(36);
 
                     b.Property<decimal>("Balance");
 
@@ -129,13 +148,22 @@ namespace IC.CloudLink.WebApi.Migrations
 
                     b.Property<bool>("IsDel");
 
-                    b.Property<string>("Phone");
+                    b.Property<string>("Phone")
+                        .HasMaxLength(13);
 
-                    b.Property<string>("WxOpenId");
+                    b.Property<string>("WxOpenId")
+                        .HasMaxLength(32);
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("IC.Core.Entity.CloudLink.DB.FlowCard", b =>
+                {
+                    b.HasOne("IC.Core.Entity.CloudLink.DB.User")
+                        .WithMany("FlowCards")
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace IC.Core.Entity.CloudLink.DB
 {
@@ -9,11 +10,21 @@ namespace IC.Core.Entity.CloudLink.DB
         /// <summary>
         /// 用户Id
         /// </summary>
+        [StringLength(36)]
         public string UserId { get; set; }
 
         /// <summary>
+        /// 用户openId
+        /// </summary>
+        /// <returns></returns>
+        [StringLength(32)]
+        public string OpenId { get; set; }
+        
+        /// <summary>
         /// 卡号
         /// </summary>
+        [StringLength(20)]
+        [Required]
         public string ICCId { get; set; }
 
         /// <summary>

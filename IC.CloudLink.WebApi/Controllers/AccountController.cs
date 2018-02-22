@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using IC.CloudLink.Services.Contracts;
 using IC.Core.Entity.CloudLink.SMS;
 using IC.Core.Entity.Common;
+using IC.Core.Utility.Extensions;
 using IC.Core.Utility.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -36,7 +37,7 @@ namespace IC.CloudLink.WebApi.Controllers
             var res = dbService.GetUserByOpenId(openId);
             var isRegister = res.Count() <= 0 ? false : true;
 
-            return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.SUCCESS, isRegister));
+            return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.SUCCESS, BIZSTATUS.SUCCESS.GetDescription(),isRegister));
         }
 
         /// <summary>
@@ -52,11 +53,11 @@ namespace IC.CloudLink.WebApi.Controllers
             var isValidCode = verificationCodeService.ValidateCode(codeDict, phone, Convert.ToInt32(validCode));
             if (!isValidCode)
             {
-                return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.INVALIDCODE, isValidCode));
+                return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.INVALIDCODE,BIZSTATUS.INVALIDCODE.GetDescription(), isValidCode));
             }
 
             dbService.Register(phone, openId);
-            return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.SUCCESS,""));
+            return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.SUCCESS, BIZSTATUS.SUCCESS.GetDescription(),""));
         }
 
         /// <summary>
@@ -71,7 +72,7 @@ namespace IC.CloudLink.WebApi.Controllers
 
             var result = smsService.SentSMS(phone, code.Code);
 
-            return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.SUCCESS, result));
+            return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.SUCCESS, BIZSTATUS.SUCCESS.GetDescription(), result));
         }
 
     }

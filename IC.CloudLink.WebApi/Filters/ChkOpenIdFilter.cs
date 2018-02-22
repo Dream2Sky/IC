@@ -45,7 +45,8 @@ namespace IC.CloudLink.WebApi.Filters
             }
             if(isInvalid)
             {
-                var resultContainer = GetFilterContextResult(Core.Entity.Enum.HTTP_SUCCESS.FAIL, IC.Core.Entity.Enum.HTTP_STATUS_CODE.INVALIDOPENID);
+                var resultContainer = GetFilterContextResult(Core.Entity.Enum.HTTP_SUCCESS.FAIL, 
+                    (int)IC.Core.Entity.Enum.BIZSTATUS.INVALIDOPENID,IC.Core.Entity.Enum.BIZSTATUS.INVALIDOPENID.GetDescription());
                 context.Result = resultContainer;
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.Forbidden;
             }

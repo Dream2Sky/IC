@@ -13,7 +13,7 @@ namespace IC.Core.Entity
             FAIL
         }
 
-        public enum HTTP_STATUS_CODE
+        public enum BIZSTATUS
         {
             [Description("获取数据失败")]
             ERROR = -1,
@@ -34,7 +34,10 @@ namespace IC.Core.Entity
             INVALIDOPENID = 203,
 
             [Description("手机验证码不合法")]
-            INVALIDCODE = 204
+            INVALIDCODE = 204,
+
+            [Description("未获取到任何流量卡信息")]
+            NOCARDS = 301
         }
 
         /// <summary>

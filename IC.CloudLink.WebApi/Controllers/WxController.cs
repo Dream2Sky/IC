@@ -35,9 +35,9 @@ namespace IC.CloudLink.WebApi.Controllers
         public IActionResult GetJSSDKConfig(string url)
         {
             var config = wxService.GetWxJSSDKConfig(wxContext, url);
-            var statusCode = config == null ? HTTP_STATUS_CODE.DATAEMPTY : HTTP_STATUS_CODE.SUCCESS;
+            var statusCode = config == null ? BIZSTATUS.DATAEMPTY : BIZSTATUS.SUCCESS;
 
-            return Ok(HttpRequestUtil.GetHttpResponse(statusCode, config));
+            return Ok(HttpRequestUtil.GetHttpResponse((int)statusCode, statusCode.GetDescription(), config));
         }
 
         [HttpGet]
@@ -53,7 +53,7 @@ namespace IC.CloudLink.WebApi.Controllers
             }
             else
             {
-                return Ok(HttpRequestUtil.GetHttpResponse<string>(HTTP_STATUS_CODE.ERROR,""));
+                return Ok(HttpRequestUtil.GetHttpResponse<string>((int)BIZSTATUS.ERROR, BIZSTATUS.ERROR.GetDescription(),""));
             }
         }
 
@@ -63,16 +63,16 @@ namespace IC.CloudLink.WebApi.Controllers
             var userInfo = wxService.GetWxUserInfo(wxContext, openId);
             if (userInfo == null)
             {
-                return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.ERROR, ""));
+                return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.ERROR,BIZSTATUS.ERROR.GetDescription(), ""));
             }
 
             if (dbService.IsRegister(openId))
             {
-                return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.SUCCESS, userInfo));
+                return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.SUCCESS, BIZSTATUS.SUCCESS.GetDescription(),userInfo));
             }
             else
             {
-                return Ok(HttpRequestUtil.GetHttpResponse(HTTP_STATUS_CODE.NOREGISTER, openId));
+                return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.NOREGISTER,BIZSTATUS.NOREGISTER.GetDescription(), openId));
             }
         }
     }

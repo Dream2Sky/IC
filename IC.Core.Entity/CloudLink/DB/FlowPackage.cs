@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace IC.Core.Entity.CloudLink.DB
 {
@@ -9,6 +10,7 @@ namespace IC.Core.Entity.CloudLink.DB
         /// <summary>
         /// 套餐名
         /// </summary>
+        [StringLength(100)]
         public string Name { get; set; }
 
         /// <summary>
@@ -29,6 +31,7 @@ namespace IC.Core.Entity.CloudLink.DB
         /// <summary>
         /// 套餐说明
         /// </summary>
+        [StringLength(1000)]
         public string Desc { get; set; }
     }
 }

@@ -45,23 +45,23 @@ namespace IC.Core.Utility.Http
             return JsonConvert.DeserializeObject<T>(temp.Result);
         }
 
-        public static HttpResult<T> GetHttpResponse<T>(Entity.Enum.HTTP_SUCCESS status,
-            Entity.Enum.HTTP_STATUS_CODE statusCode, string msg, T data)
+        public static HttpResult<T> GetHttpResponse<T> 
+            (Entity.Enum.HTTP_SUCCESS status, int statusCode, string msg, T data)
         {
             HttpResult<T> httpResult = new HttpResult<T>
             {
                 Success = status.GetDescription(),
-                Code = (int)statusCode,
+                Code = statusCode,
                 Msg = msg,
                 Data = data
             };
-
             return httpResult;
         }
 
-        public static HttpResult<T> GetHttpResponse<T>(Entity.Enum.HTTP_STATUS_CODE statusCode,T data)
+
+        public static HttpResult<T> GetHttpResponse<T>(int statusCode,string msg, T data)
         {
-            return GetHttpResponse(Entity.Enum.HTTP_SUCCESS.SUCCESS, statusCode, statusCode.GetDescription(), data);
+            return GetHttpResponse<T>(Entity.Enum.HTTP_SUCCESS.SUCCESS, statusCode, msg, data);
         }
     }
 }

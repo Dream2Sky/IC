@@ -16,11 +16,26 @@ namespace IC.CloudLink.Services
         }
 
         /// <summary>
-        /// 根据openId获取用户
+        /// 获取用户流量卡集合
         /// </summary>
         /// <param name="openId"></param>
         /// <returns></returns>
-        public IEnumerable<User> GetUserByOpenId(string openId)
+        public IEnumerable<FlowCard> GetFlowCards(string openId)
+        {
+            var users = GetUserByOpenId(openId);
+            if (users != null && users.Count()>0)
+            {
+                return users.First().FlowCards;
+            }
+            return null;
+        }
+
+    /// <summary>
+    /// 根据openId获取用户
+    /// </summary>
+    /// <param name="openId"></param>
+    /// <returns></returns>
+    public IEnumerable<User> GetUserByOpenId(string openId)
         {
             var res = cloudLinkDBContext.Users.Where(n => n.WxOpenId == openId);
             return res;
