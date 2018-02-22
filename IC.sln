@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IC.CloudLink.WebApi", "IC.CloudLink.WebApi\IC.CloudLink.WebApi.csproj", "{CA35C3EF-0D12-4D93-BF6D-635F1148CF5B}"
 EndProject
@@ -18,12 +18,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IC.Core.Utility", "IC.Core.Utility\IC.Core.Utility.csproj", "{85462F4E-AA85-44F6-97F1-4B52EF60164D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IC.Core.Entity", "IC.Core.Entity\IC.Core.Entity.csproj", "{F3023C96-D65D-4615-89C2-2EA96248784C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Wx", "Wx", "{24A822E4-AF46-426B-89EE-49DEC30919D1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IC.Wx.Gateway", "IC.Wx.Gateway\IC.Wx.Gateway.csproj", "{B73DF56A-77E5-4084-8EEE-46314170DA04}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IC.Wx.Services", "IC.Wx.Services\IC.Wx.Services.csproj", "{400202AF-A556-43AE-ADE1-0CA3C9A7E5FA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,14 +49,6 @@ Global
 		{F3023C96-D65D-4615-89C2-2EA96248784C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3023C96-D65D-4615-89C2-2EA96248784C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3023C96-D65D-4615-89C2-2EA96248784C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B73DF56A-77E5-4084-8EEE-46314170DA04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B73DF56A-77E5-4084-8EEE-46314170DA04}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B73DF56A-77E5-4084-8EEE-46314170DA04}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B73DF56A-77E5-4084-8EEE-46314170DA04}.Release|Any CPU.Build.0 = Release|Any CPU
-		{400202AF-A556-43AE-ADE1-0CA3C9A7E5FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{400202AF-A556-43AE-ADE1-0CA3C9A7E5FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{400202AF-A556-43AE-ADE1-0CA3C9A7E5FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{400202AF-A556-43AE-ADE1-0CA3C9A7E5FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,8 +60,6 @@ Global
 		{92D4A740-76F9-4E7D-BDDF-AD951F702C8D} = {2D656318-4F85-4F54-B2D4-C69E0D900DE9}
 		{85462F4E-AA85-44F6-97F1-4B52EF60164D} = {3D743D51-7577-484A-8331-B101C99880C1}
 		{F3023C96-D65D-4615-89C2-2EA96248784C} = {3D743D51-7577-484A-8331-B101C99880C1}
-		{B73DF56A-77E5-4084-8EEE-46314170DA04} = {24A822E4-AF46-426B-89EE-49DEC30919D1}
-		{400202AF-A556-43AE-ADE1-0CA3C9A7E5FA} = {24A822E4-AF46-426B-89EE-49DEC30919D1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {64A6AA2C-1FB9-498B-A8D1-97FB88077B55}
