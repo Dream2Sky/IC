@@ -46,7 +46,7 @@ namespace IC.CloudLink.WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, CloudLinkDBContext cloudLinkDBContext)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddNLog();
             if (env.IsDevelopment())
@@ -56,8 +56,6 @@ namespace IC.CloudLink.WebApi
             app.UseSession();
             app.UseStatusCodePages();
             app.UseExceptionHandler();
-
-            cloudLinkDBContext.EnsureSeedDataForContext();
 
             app.UseMvc();
         }

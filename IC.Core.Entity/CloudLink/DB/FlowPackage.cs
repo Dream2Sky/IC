@@ -33,5 +33,7 @@ namespace IC.Core.Entity.CloudLink.DB
         /// </summary>
         [StringLength(1000)]
         public string Desc { get; set; }
+
+        public ICollection<FlowPackageRecord> FlowPackageRecords { get; set; }
     }
 }

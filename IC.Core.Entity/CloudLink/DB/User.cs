@@ -30,6 +30,8 @@ namespace IC.Core.Entity.CloudLink.DB
         public decimal Balance { get; set; }
 
         public ICollection<FlowCard> FlowCards { get; set; }
-        
+        public ICollection<ReChargeRecord> ReChargeRecords { get; set; }
+        public ICollection<FlowPackageRecord> FlowPackageRecords { get; set; }
+
     }
 }

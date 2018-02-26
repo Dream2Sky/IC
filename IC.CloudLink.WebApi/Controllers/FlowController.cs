@@ -29,14 +29,15 @@ namespace IC.CloudLink.WebApi.Controllers
         public IActionResult GetCards(string openId)
         {
             var cards = dbService.GetFlowCards(openId);
-            if (cards == null)
+            if (cards == null || cards.Count() <= 0)
             {
-                return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.NOCARDS, BIZSTATUS.NOCARDS.GetDescription(),""));
+                return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.NOCARDS, BIZSTATUS.NOCARDS.GetDescription(), ""));
             }
-            List<FlowCardModel> flowCardsList= new List<FlowCardModel>();
+            List<FlowCardModel> flowCardsList = new List<FlowCardModel>();
             foreach (var item in cards)
             {
-                FlowCardModel model = new FlowCardModel(){
+                FlowCardModel model = new FlowCardModel()
+                {
                     OpenId = item.OpenId,
                     ICCId = item.ICCId,
                     TotalFlow = item.TotalFlow,
@@ -45,7 +46,7 @@ namespace IC.CloudLink.WebApi.Controllers
 
                 flowCardsList.Add(model);
             }
-            return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.SUCCESS, BIZSTATUS.SUCCESS.GetDescription(),flowCardsList));
+            return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.SUCCESS, BIZSTATUS.SUCCESS.GetDescription(), flowCardsList));
         }
     }
 }

@@ -42,5 +42,8 @@ namespace IC.Core.Entity.CloudLink.DB
         /// </summary>
         public DateTime UpdateTime { get; set; }
 
+        public ICollection<FlowPackage> FlowPackages { get; set; }
+        public ICollection<FlowPackageRecord> FlowPackageRecords { get; set; }
+
     }
 }
