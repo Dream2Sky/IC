@@ -37,7 +37,10 @@ namespace IC.Core.Entity
             INVALIDCODE = 204,
 
             [Description("未获取到任何流量卡信息")]
-            NOCARDS = 301
+            NOCARDS = 301,
+
+            [Description("非法的ICCID号")]
+            INVALIDICCID = 302
         }
 
         /// <summary>

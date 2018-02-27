@@ -7,6 +7,12 @@ namespace IC.Core.Entity.CloudLink.DB
 {
     public class HasId
     {
+        public HasId() {
+            Id = Guid.NewGuid().ToString();
+            CreateTime = DateTime.Now;
+            DelTime = DateTime.MinValue;
+            IsDel = false;
+        }
         [Key]
         [Required]
         [StringLength(36)]

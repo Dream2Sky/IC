@@ -40,6 +40,7 @@ namespace IC.CloudLink.WebApi
             AddWxService(services);
             AddVerificationCodeService(services);
             services.AddTransient<ISMSService, SMSService>();
+            services.AddTransient<IICCIDService, ICCIDService>();
             services.AddMvc(options => { options.Filters.Add<HttpGlobalExceptionFilter>();
                                          options.Filters.Add<WxAuthFilter>();
                                          options.Filters.Add<ChkOpenIdFilter>();});

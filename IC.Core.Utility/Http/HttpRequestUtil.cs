@@ -45,6 +45,13 @@ namespace IC.Core.Utility.Http
             return JsonConvert.DeserializeObject<T>(temp.Result);
         }
 
+        public static T GetTest<T>()
+        {
+            //{"state": 200, "company":"中国联通","number":"1**********","area":"西藏","year":"2013","factory":"","iccid":"8986011387900093932E","m":"0"}
+            var value = "{\"state\": 200, \"company\":\"中国联通\",\"number\":\"1 * *********\",\"area\":\"西藏\",\"year\":\"2013\",\"factory\":\"\",\"iccid\":\"8986011387900093932E\",\"m\":\"0\"}";
+            return JsonConvert.DeserializeObject<T>(value);
+        }
+
         public static HttpResult<T> GetHttpResponse<T> 
             (Entity.Enum.HTTP_SUCCESS status, int statusCode, string msg, T data)
         {

@@ -22,8 +22,13 @@ namespace IC.CloudLink.WebApi.Filters
         public void OnException(ExceptionContext context)
         {
             var logger = _loggerFactory.CreateLogger(context.Exception.TargetSite.ReflectedType);
-            logger.LogError(new EventId(context.Exception.HResult), context.Exception, context.Exception.Message);
-
+            var eventId = new EventId(context.Exception.HResult);
+            logger.LogError(eventId, context.Exception, context.Exception.Message);
+            if (context.Exception.InnerException != null)
+            {
+                logger.LogError(eventId, context.Exception, context.Exception.InnerException.Message);
+            }
+            logger.LogError(eventId, context.Exception, context.Exception.StackTrace);
             HttpResult<string> result = new HttpResult<string>();
             result.Success = Convert.ToString(Core.Entity.Enum.HTTP_SUCCESS.FAIL);
             result.Code = -1;
