@@ -25,6 +25,22 @@ namespace IC.CloudLink.Services
         }
 
         /// <summary>
+        /// 判断是否已经存在iccid
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <param name="iccId"></param>
+        /// <returns></returns>
+        public bool IsExistFlowCard(string openId, string iccId)
+        {
+            var cards = GetFlowCards(openId);
+            if (cards.SingleOrDefault(n=>n.ICCId == iccId)==null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// 添加新卡
         /// </summary>
         /// <param name="openId"></param>

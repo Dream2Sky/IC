@@ -68,58 +68,23 @@ namespace IC.CloudLink.WebApi.Controllers
         [HttpGet]
         public IActionResult AddCards(string openId, string iccId)
         {
-            Dictionary<string, string> paramDict = new Dictionary<string, string>();
-            paramDict.Add("iccid", iccId);
-
-            logger.LogInformation("iccId:" + iccId);
-
-            HttpClient httpClient = new HttpClient();
-            HttpContent content = null;
-            string url = Const.ICCIDCheckUrl;
-            if (paramDict != null && paramDict.Count > 0)
+            if (!iCCIDService.IsValidICCID(iccId))
             {
-                url += "?";
-                foreach (var item in paramDict)
-                {
-                    url += string.Format("{0}={1}&", item.Key, item.Value);
-                }
-                content = new FormUrlEncodedContent(paramDict);
-                content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-                content.Headers.ContentType.CharSet = "UTF-8";
-
+                return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.INVALIDICCID, BIZSTATUS.INVALIDICCID.GetDescription(), ""));
             }
 
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-            content.Headers.ContentType.CharSet = "UTF-8";
-
-            httpClient.DefaultRequestHeaders.Host = "iccidchaxun.com";
-            httpClient.DefaultRequestHeaders.Referrer = new Uri("http://iccidchaxun.com/");
-
-            var request = new HttpRequestMessage()
+            if (dbService.IsExistFlowCard(openId, iccId))
             {
-                RequestUri = new Uri(url),
-                Method = HttpMethod.Get,
-                Content = content
-            };
-            var res = httpClient.SendAsync(request);
-            res.Wait();
-            var resp = res.Result;
-            Task<string> temp = resp.Content.ReadAsStringAsync();
-            temp.Wait();
-            logger.LogInformation(temp.Result);
+                return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.EXISTEDCARD, BIZSTATUS.EXISTEDCARD.GetDescription(), ""));
+            }
 
-            return Ok(temp.Result);
-            //if (!iCCIDService.IsValidICCID(iccId))
-            //{
-            //    return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.INVALIDICCID, BIZSTATUS.INVALIDICCID.GetDescription(), ""));
-            //}
-            //var state = BIZSTATUS.SUCCESS;
-            //if (!dbService.AddFlowCards(openId, iccId))
-            //{
-            //    state = BIZSTATUS.ERROR;
-            //}
+            var state = BIZSTATUS.SUCCESS;
+            if (!dbService.AddFlowCards(openId, iccId))
+            {
+                state = BIZSTATUS.ERROR;
+            }
 
-            //return Ok(HttpRequestUtil.GetHttpResponse((int)state, state.GetDescription(), ""));
+            return Ok(HttpRequestUtil.GetHttpResponse((int)state, state.GetDescription(), ""));
         }
     }
 }

@@ -40,7 +40,10 @@ namespace IC.Core.Entity
             NOCARDS = 301,
 
             [Description("非法的ICCID号")]
-            INVALIDICCID = 302
+            INVALIDICCID = 302,
+
+            [Description("存在相同的卡号")]
+            EXISTEDCARD = 303
         }
 
         /// <summary>

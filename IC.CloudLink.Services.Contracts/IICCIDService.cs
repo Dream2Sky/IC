@@ -9,6 +9,6 @@ namespace IC.CloudLink.Services.Contracts
     public interface IICCIDService
     {
         bool IsValidICCID(string iccId);
-        JObject GetICCIDCheckResult(string iccId);
+        ICCIDCheckResult GetICCIDCheckResult(string iccId);
     }
 }

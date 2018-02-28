@@ -16,6 +16,8 @@ namespace IC.CloudLink.Services.Contracts
         #region FlowCards
         IEnumerable<FlowCard> GetFlowCards(string openId);
 
+        bool IsExistFlowCard(string openId, string iccId);
+
         bool AddFlowCards(string openId, string iccId);
         #endregion
     }

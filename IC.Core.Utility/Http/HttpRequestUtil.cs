@@ -13,46 +13,66 @@ namespace IC.Core.Utility.Http
 {
     public class HttpRequestUtil
     {
-        public static T Get<T>(string url, Dictionary<string, string> paramDict)
+        public static HttpContent GetHttpContent(Dictionary<string, string> paramDict)
         {
-            HttpClient httpClient = new HttpClient();
-            HttpContent content = null;
-            if (paramDict != null && paramDict.Count > 0)
+            if (paramDict == null || paramDict.Count <= 0)
             {
-                url += "?";
-                foreach (var item in paramDict)
-                {
-                    url += string.Format("{0}={1}&", item.Key, item.Value);
-                }
-                content = new FormUrlEncodedContent(paramDict);
-                content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
-                content.Headers.ContentType.CharSet = "UTF-8";
-                
+                return null;
             }
-            
-            var request = new HttpRequestMessage()
+            HttpContent content = new FormUrlEncodedContent(paramDict);
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
+            content.Headers.ContentType.CharSet = "UTF-8";
+
+            return content;
+        }
+
+        public static string GetUrl(string url, Dictionary<string, string> paramDict)
+        {
+            if (paramDict == null || paramDict.Count <= 0)
             {
-                RequestUri = new Uri(url),
-                Method = HttpMethod.Get,
-                Content = content
-            };
-            var res = httpClient.SendAsync(request);
+                return url;
+            }
+            url += "?";
+            foreach (var item in paramDict)
+            {
+                url += string.Format("{0}={1}&", item.Key, item.Value);
+            }
+
+            return url;
+        }
+
+        public static T Get<T>(HttpClient httpClient, HttpRequestMessage requestMessage)
+        {
+            var res = httpClient.SendAsync(requestMessage);
             res.Wait();
             var resp = res.Result;
             Task<string> temp = resp.Content.ReadAsStringAsync();
             temp.Wait();
-            
+
             return JsonConvert.DeserializeObject<T>(temp.Result);
         }
 
-        public static T GetTest<T>()
+        public static T Get<T>(HttpClient httpClient, string url, Dictionary<string, string> paramDict)
         {
-            //{"state": 200, "company":"中国联通","number":"1**********","area":"西藏","year":"2013","factory":"","iccid":"8986011387900093932E","m":"0"}
-            var value = "{\"state\": 200, \"company\":\"中国联通\",\"number\":\"1 * *********\",\"area\":\"西藏\",\"year\":\"2013\",\"factory\":\"\",\"iccid\":\"8986011387900093932E\",\"m\":\"0\"}";
-            return JsonConvert.DeserializeObject<T>(value);
+            var httpContent = GetHttpContent(paramDict);
+            url = GetUrl(url, paramDict);
+
+            var httpRequestMessage = new HttpRequestMessage()
+            {
+                RequestUri = new Uri(url),
+                Method = HttpMethod.Get,
+                Content = httpContent
+            };
+
+            return Get<T>(httpClient, httpRequestMessage);
         }
 
-        public static HttpResult<T> GetHttpResponse<T> 
+        public static T Get<T>(string url, Dictionary<string, string> paramDict)
+        {
+            return Get<T>(new HttpClient(), url, paramDict);
+        }
+
+        public static HttpResult<T> GetHttpResponse<T>
             (Entity.Enum.HTTP_SUCCESS status, int statusCode, string msg, T data)
         {
             HttpResult<T> httpResult = new HttpResult<T>
@@ -66,7 +86,7 @@ namespace IC.Core.Utility.Http
         }
 
 
-        public static HttpResult<T> GetHttpResponse<T>(int statusCode,string msg, T data)
+        public static HttpResult<T> GetHttpResponse<T>(int statusCode, string msg, T data)
         {
             return GetHttpResponse<T>(Entity.Enum.HTTP_SUCCESS.SUCCESS, statusCode, msg, data);
         }
