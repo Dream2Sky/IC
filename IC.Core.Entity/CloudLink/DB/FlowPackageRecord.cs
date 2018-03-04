@@ -8,12 +8,6 @@ namespace IC.Core.Entity.CloudLink.DB
     public class FlowPackageRecord : HasId
     {
         /// <summary>
-        /// 用户Id
-        /// </summary>
-        [StringLength(36)]
-        public string UserId { get; set; }
-
-        /// <summary>
         /// 流量卡Id
         /// </summary>
         [StringLength(36)]

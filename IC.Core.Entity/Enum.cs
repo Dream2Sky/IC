@@ -43,7 +43,16 @@ namespace IC.Core.Entity
             INVALIDICCID = 302,
 
             [Description("存在相同的卡号")]
-            EXISTEDCARD = 303
+            EXISTEDCARD = 303,
+
+            [Description("该用户没有绑定当前流量卡")]
+            USERHASNOCARD = 304,
+
+            [Description("充值失败")]
+            FAILEDTORECHARGE = 401,
+            
+            [Description("非法的流量卡套餐")]
+            INVALIDFLOWPACKAGE = 501
         }
 
         /// <summary>

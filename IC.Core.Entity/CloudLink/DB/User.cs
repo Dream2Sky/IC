@@ -8,10 +8,6 @@ namespace IC.Core.Entity.CloudLink.DB
 {
     public class User:HasId
     {
-        public User()
-        {
-            FlowCards = new List<FlowCard>();
-        }
         /// <summary>
         /// 微信OpenId
         /// </summary>
@@ -31,7 +27,5 @@ namespace IC.Core.Entity.CloudLink.DB
 
         public ICollection<FlowCard> FlowCards { get; set; }
         public ICollection<ReChargeRecord> ReChargeRecords { get; set; }
-        public ICollection<FlowPackageRecord> FlowPackageRecords { get; set; }
-
     }
 }

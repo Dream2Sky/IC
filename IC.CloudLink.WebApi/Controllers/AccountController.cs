@@ -37,7 +37,7 @@ namespace IC.CloudLink.WebApi.Controllers
             var res = dbService.GetUserByOpenId(openId);
             var isRegister = res.Count() <= 0 ? false : true;
 
-            return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.SUCCESS, BIZSTATUS.SUCCESS.GetDescription(),isRegister));
+            return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.SUCCESS, BIZSTATUS.SUCCESS.GetDescription(), isRegister));
         }
 
         /// <summary>
@@ -53,11 +53,11 @@ namespace IC.CloudLink.WebApi.Controllers
             var isValidCode = verificationCodeService.ValidateCode(codeDict, phone, Convert.ToInt32(validCode));
             if (!isValidCode)
             {
-                return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.INVALIDCODE,BIZSTATUS.INVALIDCODE.GetDescription(), isValidCode));
+                return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.INVALIDCODE, BIZSTATUS.INVALIDCODE.GetDescription(), isValidCode));
             }
 
             dbService.Register(phone, openId);
-            return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.SUCCESS, BIZSTATUS.SUCCESS.GetDescription(),""));
+            return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.SUCCESS, BIZSTATUS.SUCCESS.GetDescription(), ""));
         }
 
         /// <summary>
@@ -73,6 +73,21 @@ namespace IC.CloudLink.WebApi.Controllers
             var result = smsService.SentSMS(phone, code.Code);
 
             return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.SUCCESS, BIZSTATUS.SUCCESS.GetDescription(), result));
+        }
+
+        /// <summary>
+        /// 微信充值成功后回调方法
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <param name="amount"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult RechargeCallBack(string openId, decimal amount)
+        {
+            var isOk = dbService.ReCharge(openId, amount);
+            var state = isOk ? BIZSTATUS.SUCCESS : BIZSTATUS.FAILEDTORECHARGE;
+
+            return Ok(HttpRequestUtil.GetHttpResponse((int)state, state.GetDescription(), ""));
         }
 
     }

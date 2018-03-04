@@ -11,9 +11,10 @@ using System;
 namespace IC.CloudLink.WebApi.Migrations
 {
     [DbContext(typeof(CloudLinkDBContext))]
-    partial class CloudLinkDBContextModelSnapshot : ModelSnapshot
+    [Migration("20180304184344_FixedRSMigration")]
+    partial class FixedRSMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

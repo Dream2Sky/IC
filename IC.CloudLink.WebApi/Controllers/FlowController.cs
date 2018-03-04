@@ -73,7 +73,7 @@ namespace IC.CloudLink.WebApi.Controllers
                 return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.INVALIDICCID, BIZSTATUS.INVALIDICCID.GetDescription(), ""));
             }
 
-            if (dbService.IsExistFlowCard(openId, iccId))
+            if (dbService.IsExistedFlowCard(iccId))
             {
                 return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.EXISTEDCARD, BIZSTATUS.EXISTEDCARD.GetDescription(), ""));
             }
@@ -86,5 +86,34 @@ namespace IC.CloudLink.WebApi.Controllers
 
             return Ok(HttpRequestUtil.GetHttpResponse((int)state, state.GetDescription(), ""));
         }
+
+        /// <summary>
+        /// 购买流量套餐
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <param name="iccId"></param>
+        /// <param name="flowPackageId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult BuyFlowPackage(string openId, string iccId, string flowPackageId)
+        {
+            var cards = dbService.GetFlowCards(openId);
+            if (cards == null || cards.Count()<=0 || cards.SingleOrDefault(n=>n.ICCId == iccId)==null)
+            {
+                return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.USERHASNOCARD, BIZSTATUS.USERHASNOCARD.GetDescription(), ""));
+            }
+
+            if (!dbService.IsExistedFlowPackage(flowPackageId))
+            {
+                return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.INVALIDFLOWPACKAGE, BIZSTATUS.INVALIDFLOWPACKAGE.GetDescription(), ""));
+            }
+
+            if (dbService.BuyFlowPackage(iccId, flowPackageId))
+            {
+                return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.SUCCESS, BIZSTATUS.SUCCESS.GetDescription(), ""));
+            }
+            return Ok(HttpRequestUtil.GetHttpResponse((int)BIZSTATUS.ERROR, BIZSTATUS.ERROR.GetDescription(), ""));
+        }
+
     }
 }
