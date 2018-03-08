@@ -29,6 +29,12 @@ namespace IC.Core.Entity.CloudLink.DB
         public Enum.PERID Type { get; set; }
 
         /// <summary>
+        /// 是否是临时加餐包
+        /// </summary>
+        /// <returns></returns>
+        public bool IsTemp { get; set; }
+        
+        /// <summary>
         /// 套餐说明
         /// </summary>
         [StringLength(1000)]

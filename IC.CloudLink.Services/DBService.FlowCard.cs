@@ -90,6 +90,25 @@ namespace IC.CloudLink.Services
         }
 
         /// <summary>
+        /// 删除流量套餐
+        /// </summary>
+        /// <param name="iccId"></param>
+        /// <param name="flowPackageId"></param>
+        /// <returns></returns>
+        public bool DelFlowPackage(string iccId, string flowPackageId)
+        {
+            var flowPackageRecord = cloudLinkDBContext.FlowPackageRecords
+            .Where(n=>n.Id == flowPackageId && n.CardId == iccId && n.IsDel == false).FirstOrDefault();
+            if(flowPackageRecord!= null)
+            {
+                flowPackageRecord.IsDel = true;
+                cloudLinkDBContext.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
         /// 购买流量卡
         /// </summary>
         /// <param name="iccId"></param>
@@ -98,6 +117,7 @@ namespace IC.CloudLink.Services
         public bool BuyFlowPackage(string iccId, string flowPackageId)
         {
             var flowPackage = GetFlowPackage(flowPackageId);
+            
             if (flowPackage != null)
             {
                 FlowPackageRecord flowPackageRecord = new FlowPackageRecord()

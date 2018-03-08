@@ -12,7 +12,7 @@ namespace IC.CloudLink.Services
 {
     public class ICCIDService : IICCIDService
     {
-        public ICCIDCheckResult GetICCIDCheckResult(string iccId)
+    public ICCIDCheckResult GetICCIDCheckResult(string iccId)
         {
             Dictionary<string, string> paramDict = new Dictionary<string, string>();
             paramDict.Add("iccid", iccId);

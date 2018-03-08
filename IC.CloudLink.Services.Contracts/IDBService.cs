@@ -28,6 +28,7 @@ namespace IC.CloudLink.Services.Contracts
         bool IsExistedFlowPackage(string flowPackageId);
         bool BuyFlowPackage(string iccId, string flowPackageId);
         FlowPackage GetFlowPackage(string flowPackageId);
+        bool DelFlowPackage(string iccId, string flowPackageId);
         #endregion
     }
 }
